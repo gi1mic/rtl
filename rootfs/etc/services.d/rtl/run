@@ -1,0 +1,20 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Start CEC scan service
+# ==============================================================================
+CONFIG_PATH=/data/options.json
+
+
+OPTIONS="$(bashio::config 'rtl_options')"
+MQTT_SERVER="$(bashio::config 'mqtt_server')"
+MQTT_PORT="$(bashio::config 'mqtt_port')"
+MQTT_USER="$(bashio::config 'mqtt_user')"
+MQTT_PASSWORD="$(bashio::config 'mqtt_password')"
+
+bashio::log.info "Starting rtl_433 ${OPTIONS} -F mqtt://${MQTT_SERVER}:${MQTT_PORT},retain=0,user=${MQTT_USER},pass=${MQTT_PASSWORD},devices=home/rtl_433[/model][/id]"
+
+if [ ! "${OPTIONS}" ]; then 
+	rtl_433 ${OPTIONS} -F mqtt://${MQTT_SERVER}:${MQTT_PORT},retain=0,user=${MQTT_USER},pass=${MQTT_PASSWORD},devices=home/rtl_433[/model][/id]
+else
+	rtl_433 -F mqtt://${MQTT_SERVER}:${MQTT_PORT},retain=0,user=${MQTT_USER},pass=${MQTT_PASSWORD},devices=home/rtl_433[/model][/id]
+fi
