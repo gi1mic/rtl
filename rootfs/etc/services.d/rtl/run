@@ -1,6 +1,6 @@
 #!/usr/bin/with-contenv bashio
 # ==============================================================================
-# Start CEC scan service
+# Start RTL_433 service
 # ==============================================================================
 CONFIG_PATH=/data/options.json
 
